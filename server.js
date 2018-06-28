@@ -8,10 +8,12 @@ var port = process.env.PORT || 8080;
 // immediate abuse (e.g. denial of service). If you want to block all origins except for some,
 // use originWhitelist instead.
 var originBlacklist = parseEnvList(process.env.CORSANYWHERE_BLACKLIST);
-//var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
-var originWhitelist = parseEnvList('https://thimbleprojects.org,http://thimbleprojects.org,https://techniko.ml,http://techniko.ml');
+var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+var headersWhitelist = parseEnvList(process.env.CORSANYWHERE_HEADERS);
 function parseEnvList(env) {
-  if (!env) {
+  if (env == 'yes') {
+    return ['origin', 'x-requested-with'];
+  } else if (!env) {
     return [];
   }
   return env.split(',');
@@ -24,7 +26,8 @@ var cors_proxy = require('./lib/cors-anywhere');
 cors_proxy.createServer({
   originBlacklist: originBlacklist,
   originWhitelist: originWhitelist,
-  requireHeader: ['origin', 'x-requested-with'],
+  //requireHeader: ['origin', 'x-requested-with'],
+  requireHeader: headersWhitelist,
   checkRateLimit: checkRateLimit,
   removeHeaders: [
     'cookie',
