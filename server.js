@@ -8,7 +8,8 @@ var port = process.env.PORT || 8080;
 // immediate abuse (e.g. denial of service). If you want to block all origins except for some,
 // use originWhitelist instead.
 var originBlacklist = parseEnvList(process.env.CORSANYWHERE_BLACKLIST);
-var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+//var originWhitelist = parseEnvList(process.env.CORSANYWHERE_WHITELIST);
+var originWhitelist = parseEnvList('https://thimbleprojects.org,https://turquoise-turtle.github.io');
 var headersWhitelist = parseEnvList(process.env.CORSANYWHERE_HEADERS);
 function parseEnvList(env) {
   if (env == 'yes') {
