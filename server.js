@@ -32,7 +32,7 @@ cors_proxy.createServer({
   checkRateLimit: checkRateLimit,
   removeHeaders: [
     'cookie',
-    'cookie2',
+    'cookie2', 
     // Strip Heroku-specific headers
     'x-heroku-queue-wait-time',
     'x-heroku-queue-depth',
